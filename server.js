@@ -39,7 +39,12 @@ app.get("/api/timestamp/:date_string", (req, res) => {
   } else {
     date = new Date(date_string);
   }
-  res.json({
+  if (date.toString() === "Invalid Date") {
+    return res.json({
+      error: "Invalid Date",
+    });
+  }
+  return res.json({
     unix: date.getTime(),
     utc: date.toUTCString(),
   });
